@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/weather.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap">
+</head>
+<body>
+    <div class="container">
+        <h1>Weather Teller</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <small><label for="city">Enter The Location for Weather Information</label></small>
+            <br>
+            <input type="text" name="city" placeholder="Enter The City">
+            <button type="submit" class="btn">Search</button>
+        </form>
+
+        <div class="weather">
+            <div class="left">
+                <h3><small>Location</small>:{{city}}</h3>
+                <h2>{{temp}}&deg;C</h2>
+            </div>
+
+            <div class="right">
+                <div class="icon">
+                    <p><img src="https://api.openweathermap.org/img/w/{{icon}}.png" width="100px"></p>
+                </div>
+
+                <div class="condition">
+                    <p>{{description}}</p>
+                    <p>{{day}}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    {% if exception_occured %}
+    <script>
+        window.onload = function() {
+            alert("City information is not available to Weather API");
+        }
+    </script>
+    {% endif %}
+</body>
+</html>
+
+
+
+<!--<center>
+    <h1>Weather Teller</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="city" placeholder="Enter The City">
+        <button type="submit">Search</button>
+    </form>
+
+    <h2>City: {{city}}</h2>
+    <h2>Temperature: {{temp}}&deg; C</h2>
+    <h2>Speed: {{speed}}</h2>
+    <h2>Humidity: {{humidity}}</h2>
+    <p>Description: {{description}}</p>
+    <p>
+        <img src="https://api.openweathermap.org/img/w/{{icon}}.png" width="100px">
+    </p>
+    <p>Day: {{day}}</p>
+</center>-->
